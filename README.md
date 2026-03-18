@@ -1,113 +1,135 @@
-# Agents.md Studio
+# 🤖 Agents.md Studio
 
-AI编码代理配置可视化编辑器 - VS Code扩展
+[![Version](https://img.shields.io/badge/version-0.2.0-blue.svg)](https://github.com/caoyachao/agentsmd-studio)
+[![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
+[![VS Code](https://img.shields.io/badge/VS%20Code-1.80%2B-blue.svg)](https://code.visualstudio.com/)
 
-## 功能特性
+AI 编码代理配置的可视化编辑器 - VS Code 扩展
 
-- 📝 **Monaco Editor** 驱动的 Markdown 编辑器
-- 🎨 可视化代理配置界面
-- 🔍 配置预览和验证
-- 🤖 支持多种AI模型配置
-- 📊 侧边栏集成
+## ✨ 功能特性
 
-## 快速开始
+- 📝 **可视化表单编辑器** - 直观的表单界面编辑 Agent 配置
+- 🗂️ **文件树浏览器** - 侧边栏展示所有 AGENTS.md 文件
+- 📋 **模板系统** - 内置 Python/Node.js/React 项目模板
+- 🔧 **YAML 解析** - 智能解析和编辑 frontmatter
+- 💾 **一键保存** - 实时保存到文件
+- 🎨 **VS Code 原生风格** - 完美融入编辑器主题
 
-### 安装依赖
+## 🚀 快速开始
+
+### 安装
+
+从 VS Code 扩展市场搜索 "Agents.md Studio" 安装，或从源码构建：
 
 ```bash
+git clone https://github.com/caoyachao/agentsmd-studio.git
+cd agentsmd-studio
 npm install
-```
-
-### 构建项目
-
-```bash
-# 编译扩展主代码
 npm run compile
-
-# 构建 Webview 前端
-npm run build-webview
 ```
 
-或者一次性构建：
+然后在 VS Code 中按 `F5` 启动扩展开发主机。
 
-```bash
-npm run vscode:prepublish
-```
+### 使用方法
 
-### 运行扩展
+1. 打开包含 AGENTS.md 文件的工作区
+2. 点击左侧活动栏的 **Agents.md Studio** 图标
+3. 在侧边栏查看所有 AGENTS.md 文件
+4. 点击文件使用可视化编辑器打开
+5. 编辑配置并点击保存
 
-1. 在 VS Code 中打开本项目
-2. 按 `F5` 打开扩展开发主机
-3. 在新窗口中打开命令面板 (`Ctrl+Shift+P` / `Cmd+Shift+P`)
-4. 输入并选择 `Agents.md: Open Agents.md Studio`
-5. 或者点击左侧活动栏的 Agents.md Studio 图标
+## 📸 功能截图
 
-### 开发模式
+### 文件树浏览
+侧边栏自动扫描并展示工作区中的所有 AGENTS.md 文件
 
-启动监视模式，自动重新编译：
+### 可视化编辑器
+- 基础信息：名称、版本、描述、角色、模型
+- 能力标签：动态添加/删除能力项
+- 工具列表：管理 Agent 可调用的工具
+- 命令管理：可视化编辑自定义命令
+- 系统提示词：编辑系统级行为定义
 
-```bash
-# 终端1: 监视扩展代码
-npm run watch
+### 模板系统
+内置 4 个模板快速开始：
+- 🐍 **Python Agent** - 数据分析和脚本执行
+- 🟢 **Node.js Agent** - 后端 API 开发
+- ⚛️ **React Agent** - 前端 UI 开发
+- 🤖 **General Assistant** - 通用配置
 
-# 终端2: 监视 Webview 代码
-npm run watch-webview
-```
+## 🛠️ 技术栈
 
-## 项目结构
+- **扩展核心**: VS Code Extension API + TypeScript
+- **可视化界面**: Webview + 原生 JavaScript
+- **配置解析**: js-yaml
+- **主题适配**: VS Code CSS Variables
+
+## 📁 项目结构
 
 ```
 agentsmd-studio/
-├── .vscode/                  # VS Code 工作区配置
-│   ├── launch.json          # 调试配置
-│   └── tasks.json           # 任务配置
-├── out/                     # 编译输出
-│   ├── extension.js         # 扩展主代码
-│   └── webview/             # Webview 前端代码
-│       ├── app.js           # React 应用
-│       └── style.css        # 样式
-├── resources/               # 静态资源
-│   └── icon.svg             # 扩展图标
-├── src/                     # 源代码
-│   ├── extension.ts         # 扩展入口
-│   └── webview/             # Webview 源码
-│       ├── index.tsx        # React 应用入口
-│       ├── components/      # React 组件
-│       │   └── MonacoEditor.tsx
-│       └── styles.css       # 样式
-├── package.json             # 扩展配置和依赖
-├── tsconfig.json            # TypeScript 配置（扩展）
-├── tsconfig.webview.json    # TypeScript 配置（Webview）
-├── webpack.config.js        # Webpack 配置
-└── README.md                # 说明文档
+├── src/
+│   ├── extension.ts              # 扩展入口
+│   ├── treeView.ts               # 文件树视图
+│   ├── yamlParser.ts             # YAML 解析器
+│   ├── fileWatcher.ts            # 文件监听
+│   ├── webview/
+│   │   └── editorProvider.ts     # 可视化编辑器
+│   └── templates/
+│       └── templateManager.ts    # 模板管理
+├── resources/
+│   └── icon.svg                  # 扩展图标
+├── test-workspace/               # 测试文件
+├── package.json                  # 扩展配置
+├── tsconfig.json                 # TypeScript 配置
+└── README.md                     # 说明文档
 ```
 
-## 技术栈
+## 📝 AGENTS.md 格式
 
-- **扩展**: VS Code Extension API (TypeScript)
-- **前端**: React 18 + TypeScript
-- **编辑器**: Monaco Editor (@monaco-editor/react)
-- **构建**: Webpack 5 + ts-loader
-- **样式**: CSS
+```yaml
+---
+name: My Agent
+version: 1.0.0
+description: An AI agent for coding assistance
+role: Developer
+model: gpt-4
+capabilities:
+  - Code generation
+  - Code review
+tools:
+  - web_search
+  - file_read
+commands:
+  - name: review
+    description: Review code
+    prompt: Please review this code...
+systemPrompt: |
+  You are a helpful coding assistant.
+---
 
-## 命令
+# My Agent
 
-| 命令 | 描述 |
-|------|------|
-| `Agents.md: Open Agents.md Studio` | 打开主编辑器面板 |
+Additional documentation...
+```
 
-## 视图
+## 🎯 开发计划
 
-- **侧边栏**: 左侧活动栏的 "Agents.md Studio" 图标
-
-## 开发计划
-
-- [ ] AGENTS.md 文件解析
-- [ ] 可视化表单编辑器
-- [ ] 实时预览
+- [x] 文件树展示
+- [x] 文件监听
+- [x] YAML 解析
+- [x] 可视化表单编辑器
+- [x] 模板系统
+- [x] GitHub 仓库
+- [ ] 实时预览面板
 - [ ] 配置验证
 - [ ] 导出/导入功能
+- [ ] VS Code 市场发布
 
-## 许可证
+## 📄 许可证
 
-MIT
+MIT © [Jack](https://github.com/caoyachao)
+
+---
+
+**Happy Coding with AI Agents! 🤖✨**
