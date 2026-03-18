@@ -1,0 +1,144 @@
+{
+  "name": "agentsmd-studio",
+  "displayName": "Agents.md Studio",
+  "description": "AI编码代理配置可视化编辑器",
+  "version": "0.2.0",
+  "publisher": "agentsmd",
+  "engines": {
+    "vscode": "^1.80.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "keywords": [
+    "ai",
+    "agent",
+    "editor",
+    "agents.md"
+  ],
+  "activationEvents": [
+    "onView:agentsmd-studio.files",
+    "workspaceContains:**/AGENTS.md",
+    "workspaceContains:**/.agents.md"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "agentsmd-studio.openFileInEditor",
+        "title": "Open File",
+        "category": "Agents.md"
+      },
+      {
+        "command": "agentsmd-studio.refreshFiles",
+        "title": "Refresh",
+        "category": "Agents.md",
+        "icon": "$(refresh)"
+      },
+      {
+        "command": "agentsmd-studio.newFile",
+        "title": "New Agents.md",
+        "category": "Agents.md",
+        "icon": "$(new-file)"
+      },
+      {
+        "command": "agentsmd-studio.newFromTemplate",
+        "title": "New from Template",
+        "category": "Agents.md",
+        "icon": "$(template)"
+      },
+      {
+        "command": "agentsmd-studio.previewTemplate",
+        "title": "Preview Template",
+        "category": "Agents.md"
+      },
+      {
+        "command": "agentsmd-studio.scanWorkspace",
+        "title": "Scan for AGENTS.md Files",
+        "category": "Agents.md"
+      }
+    ],
+    "menus": {
+      "commandPalette": [
+        {
+          "command": "agentsmd-studio.openFileInEditor",
+          "when": "false"
+        },
+        {
+          "command": "agentsmd-studio.previewTemplate",
+          "when": "false"
+        },
+        {
+          "command": "agentsmd-studio.scanWorkspace",
+          "when": "true"
+        }
+      ],
+      "view/title": [
+        {
+          "command": "agentsmd-studio.refreshFiles",
+          "when": "view == agentsmd-studio.files",
+          "group": "navigation@1"
+        },
+        {
+          "command": "agentsmd-studio.newFile",
+          "when": "view == agentsmd-studio.files",
+          "group": "navigation@2"
+        },
+        {
+          "command": "agentsmd-studio.newFromTemplate",
+          "when": "view == agentsmd-studio.files",
+          "group": "navigation@3"
+        }
+      ]
+    },
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "agentsmd-studio",
+          "title": "Agents.md Studio",
+          "icon": "$(file-code)"
+        }
+      ]
+    },
+    "views": {
+      "agentsmd-studio": [
+        {
+          "id": "agentsmd-studio.files",
+          "name": "AGENTS.md Files",
+          "when": "workspaceHasFolders"
+        }
+      ]
+    },
+    "customEditors": [
+      {
+        "viewType": "agentsmd-studio.editor",
+        "displayName": "Agents.md Editor",
+        "selector": [
+          {
+            "filenamePattern": "**/{AGENTS,.agents}.md"
+          }
+        ],
+        "priority": "default"
+      }
+    ]
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "lint": "eslint src --ext ts",
+    "test": "node ./out/test/runTest.js"
+  },
+  "devDependencies": {
+    "@types/node": "20.x",
+    "@types/vscode": "^1.80.0",
+    "@typescript-eslint/eslint-plugin": "^6.4.1",
+    "@typescript-eslint/parser": "^6.4.1",
+    "eslint": "^8.47.0",
+    "typescript": "^5.1.6"
+  },
+  "dependencies": {
+    "@types/js-yaml": "^4.0.9",
+    "js-yaml": "^4.1.1"
+  }
+}
